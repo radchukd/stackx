@@ -1,0 +1,5 @@
+.env
+node_modules
+client/dist
+server/dist
+server/src/run.log

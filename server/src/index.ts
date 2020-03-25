@@ -6,6 +6,7 @@ import cors from 'cors';
 import errorHandler from 'errorhandler';
 import express from 'express';
 import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import { MongoNetworkError } from 'mongodb';
 import { resolve } from 'path';
 import dbClient from './config/db';
@@ -32,8 +33,9 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 app.use('/graphql', graphqlExpress({ schema }));
 
 if (NODE_ENV === 'production') {
-  app.use(express.static(resolve(__dirname, '../client/dist')));
+  app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
+  app.use(express.static(resolve(__dirname, '../client/dist')));
   app.get('*', (_req, res) => {
     res.sendFile(resolve(__dirname, '../client/dist/index.html'));
   });

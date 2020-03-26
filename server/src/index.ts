@@ -35,9 +35,9 @@ app.use('/graphql', graphqlExpress({ schema }));
 if (NODE_ENV === 'production') {
   app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
-  app.use(express.static(resolve(__dirname, '../client/dist')));
+  app.use(express.static(resolve(__dirname, '../../client/dist')));
   app.get('*', (_req, res) => {
-    res.sendFile(resolve(__dirname, '../client/dist/index.html'));
+    res.sendFile(resolve(__dirname, '../../client/dist/index.html'));
   });
 } else {
   app.use(errorHandler());

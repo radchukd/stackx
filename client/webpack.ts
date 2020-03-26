@@ -8,6 +8,9 @@ const { NODE_ENV, SERVER_PORT, SERVER_HOST } = process.env;
 module.exports = {
   mode: NODE_ENV === 'development' ? 'development' : 'production',
   entry: './src/index.tsx',
+  performance: {
+    hints: false
+  },
   output: {
     path: resolve(__dirname, './dist'),
     filename: 'bundle.js',

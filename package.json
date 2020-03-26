@@ -1,9 +1,18 @@
 {
-  "name": "stack",
+  "name": "stackx",
   "version": "1.0.0",
-  "author": "radchuk.d@gmail.com",
-  "description": "",
+  "author": "Dmytro Radchuk <radchuk.d@gmail.com>",
+  "homepage": "https://github.com/radchukd/stackx",
+  "description": "Template for projects using Typescript",
   "license": "MIT",
+  "keywords": [
+    "node",
+    "typescript",
+    "express",
+    "react",
+    "redux",
+    "graphql"
+  ],
   "scripts": {
     "build": "npm run server:build && npm run client:build  && npm run lint",
     "debug": "nodemon --inspect server/dist/index.js",
@@ -14,7 +23,7 @@
     "client:dev": "cd client && webpack-dev-server --config webpack.ts",
     "client:lint": "eslint \"client/src/**/*.{ts,tsx}\"",
     "client:test": "TODO",
-    "server:build": "tsc --baseUrl server/src --outDir server/dist",
+    "server:build": "tsc",
     "server:dev": "nodemon server/src/index.ts --ignore client",
     "server:lint": "eslint \"server/src/**/*.ts\"",
     "server:test": "TODO"

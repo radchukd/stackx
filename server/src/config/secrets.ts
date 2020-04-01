@@ -10,14 +10,17 @@ export const {
   SERVER_HOST,
   SERVER_PORT,
   DB_URI,
+  DB_NAME,
+  JWT_SECRET,
+  JWT_EXPIRY
 } = process.env;
 
 if (!SERVER_HOST || !SERVER_PORT) {
-  logger.error('Port is not set');
+  logger.error('Port/host is not set');
   process.exit(1);
 }
 
-if (!DB_URI) {
-  logger.error('Database uri is not set');
+if (!DB_URI || !DB_NAME) {
+  logger.error('Database uri/name is not set');
   process.exit(1);
 }

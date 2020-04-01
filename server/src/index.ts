@@ -1,18 +1,14 @@
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import { makeExecutableSchema } from 'graphql-tools';
-import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
 import express from 'express';
 import helmet from 'helmet';
+import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
-import { MongoNetworkError } from 'mongodb';
 import { resolve } from 'path';
-import dbClient from './config/db';
+import database from './config/db';
+import apolloServer from './config/apolloServer';
 import logger from './config/logger';
-import typeDefs from './typedefs';
-import resolvers from './resolvers';
 import {
   CLIENT_HOST,
   CLIENT_PORT,
@@ -29,9 +25,6 @@ app.use(helmet.permittedCrossDomainPolicies());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
-app.use('/graphql', graphqlExpress({ schema }));
-
 if (NODE_ENV === 'production') {
   app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
@@ -39,19 +32,13 @@ if (NODE_ENV === 'production') {
   app.get('*', (_req, res) => {
     res.sendFile(resolve(__dirname, '../../client/dist/index.html'));
   });
-} else {
-  app.use(errorHandler());
-  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-}
+} else { app.use(errorHandler()); }
 
-dbClient.connect((error: MongoNetworkError) => {
-  if (error) { logger.error(error.message); }
-  logger.info('Connected to MongoDb.');
+apolloServer.applyMiddleware({ app, path: '/graphql' });
 
-  app.listen(SERVER_PORT, () => {
-    logger.info(`Server is running on ${SERVER_HOST}:${SERVER_PORT}.`);
-  });
-  dbClient.close();
+app.listen(SERVER_PORT, async () => {
+  await database.init();
+  logger.info(`Server is running on ${SERVER_HOST}:${SERVER_PORT}.`);
 });
 
 export default app;

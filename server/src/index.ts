@@ -14,7 +14,7 @@ import {
   CLIENT_PORT,
   SERVER_PORT,
   NODE_ENV,
-  SERVER_HOST
+  SERVER_HOST,
 } from './config/secrets';
 
 const app = express();

@@ -12,7 +12,7 @@ export const {
   DB_URI,
   DB_NAME,
   JWT_SECRET,
-  JWT_EXPIRY
+  JWT_EXPIRY,
 } = process.env;
 
 if (!SERVER_HOST || !SERVER_PORT) {

@@ -30,7 +30,6 @@
       }
     ],
     "arrow-parens": 0,
-    "comma-dangle": 0,
     "consistent-return": 1,
     "import/extensions": 0,
     "import/no-extraneous-dependencies": 0,
@@ -45,6 +44,8 @@
       }
     ],
     "no-await-in-loop": 0,
+    "no-extra-semi": 0,
+    "no-underscore-dangle": 0,
     "object-curly-newline": 0,
     "react/jsx-filename-extension": 0,
     "strict": 0

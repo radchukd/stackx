@@ -7,7 +7,7 @@ class Database {
 
   db: Db;
 
-  usersCollection: Collection;
+  users: Collection;
 
   public readonly init = async function init(): Promise<void> {
     if (this.client || this.db) {
@@ -15,11 +15,11 @@ class Database {
     }
     this.client = await MongoClient.connect(DB_URI, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
     this.db = await this.client.db(DB_NAME);
     logger.info('Connected to MongoDb.');
-    this.usersCollection = await this.db.collection('users');
+    this.users = await this.db.collection('users');
   }
 };
 

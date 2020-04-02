@@ -8,13 +8,11 @@ import rateLimit from 'express-rate-limit';
 import { resolve } from 'path';
 import database from './config/db';
 import apolloServer from './config/apolloServer';
-import logger from './config/logger';
 import {
   CLIENT_HOST,
   CLIENT_PORT,
   SERVER_PORT,
   NODE_ENV,
-  SERVER_HOST,
 } from './config/secrets';
 
 const app = express();
@@ -36,9 +34,6 @@ if (NODE_ENV === 'production') {
 
 apolloServer.applyMiddleware({ app, path: '/graphql' });
 
-app.listen(SERVER_PORT, async () => {
-  await database.init();
-  logger.info(`Server is running on ${SERVER_HOST}:${SERVER_PORT}.`);
-});
+app.listen(SERVER_PORT, async () => { await database.init(); });
 
 export default app;

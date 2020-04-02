@@ -37,9 +37,3 @@ const resolvers = {
 };
 
 export default resolvers;
-/*
-updateProfile(input: UpdateProfileInput!): UserType
-updateEmail(input: String): UserType
-updatePassword(input: String): UserType
-deleteUser: String
-*/

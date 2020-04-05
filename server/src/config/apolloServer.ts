@@ -5,11 +5,10 @@ import { verify } from 'jsonwebtoken';
 import schema from '../schema';
 import { NODE_ENV, JWT_SECRET } from './secrets';
 
-
 const context = async ({ req }: { req: Request }) => {
-  const token = (req.headers && req.headers.authorization);
-  if (!token) { return { payload: null }; }
-  const payload = await verify(token, JWT_SECRET);
+  const token = req.headers && req.headers.authorization;
+  if (!token || token === 'null') { return { payload: null }; }
+  const payload = verify(token, JWT_SECRET);
   return { payload };
 };
 

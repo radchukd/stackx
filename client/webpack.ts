@@ -1,15 +1,13 @@
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import { resolve } from 'path';
-import dotenv from 'dotenv';
 
-dotenv.config();
 const { NODE_ENV, SERVER_PORT, SERVER_HOST } = process.env;
 
 module.exports = {
   mode: NODE_ENV === 'development' ? 'development' : 'production',
   entry: './src/index.tsx',
   performance: {
-    hints: false
+    hints: false,
   },
   output: {
     path: resolve(__dirname, './dist'),
@@ -28,7 +26,7 @@ module.exports = {
     open: true,
     hot: true,
     historyApiFallback: true,
-    proxy: { '/graphql': `${SERVER_HOST}:${SERVER_PORT}` }
+    proxy: { '/graphql': `${SERVER_HOST}:${SERVER_PORT}` },
   },
   plugins: [
     new HtmlWebPackPlugin({

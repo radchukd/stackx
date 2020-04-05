@@ -1,5 +1,5 @@
 import { MongoClient, Db, Collection } from 'mongodb';
-import { DB_URI, DB_NAME } from '../config/secrets';
+import { DB_URI, DB_NAME } from './secrets';
 
 class Database {
   client: MongoClient;

@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
 import { Request } from 'express';
 import { verify } from 'jsonwebtoken';
-import schema from '../schema';
+import schema from '../graphql';
 import { NODE_ENV, JWT_SECRET } from './secrets';
 
 const context = async ({ req }: { req: Request }) => {

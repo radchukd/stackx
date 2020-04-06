@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const Error = ({ message }: { message: string }) => (
+interface ErrorProps {
+  message: string;
+};
+
+const Error: FC<ErrorProps> = ({ message }) => (
   <div>
     Error:
     { message }

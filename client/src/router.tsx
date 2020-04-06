@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/login';
@@ -7,7 +7,7 @@ import Profile from './pages/profile';
 
 import { PrivateRoute } from './components';
 
-const AppRouter = () => (
+const AppRouter: FC<{}> = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route exact path="/login" component={Login} />

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-const Home = () => (
+const Home: FC<{}> = () => (
   <>
     <Link to="/login">Log in</Link>
     <br />

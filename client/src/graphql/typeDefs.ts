@@ -1,6 +1,7 @@
 import { gql } from 'apollo-boost';
+import { DocumentNode } from 'graphql';
 
-const typeDefs = gql`
+const typeDefs: DocumentNode = gql`
   extend type Query {
     isLoggedIn: Boolean!
   }

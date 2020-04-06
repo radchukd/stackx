@@ -1,10 +1,10 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { FC, useState, MouseEvent } from 'react';
 import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { LOGIN } from '../graphql/queries';
 import { Loading, Error } from '../components';
 
-const Login = () => {
+const Login: FC<{}> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();

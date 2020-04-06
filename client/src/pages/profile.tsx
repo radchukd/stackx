@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_USER } from '../graphql/queries';
 import { Loading, Error } from '../components';
 
-const Profile = () => {
+const Profile: FC<{}> = () => {
   const { data, error, loading } = useQuery(GET_USER);
-  console.log(data);
+
   if (loading) { return <Loading />; }
   if (error) { return <Error message={error.message} />; }
 

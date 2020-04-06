@@ -1,10 +1,10 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { FC, useState, MouseEvent } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { SIGNUP } from '../graphql/mutations';
 import { Loading, Error } from '../components';
 
-const Signup = () => {
+const Signup: FC<{}> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();

@@ -1,6 +1,7 @@
-import { gql } from 'apollo-server-express';
+import gql from 'graphql-tag';
+import { DocumentNode } from 'graphql';
 
-const userTypeDefs = gql`
+const userTypeDefs: DocumentNode = gql`
   type UserProfileType {
     firstName: String
     lastName: String

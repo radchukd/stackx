@@ -5,18 +5,21 @@ import { verify } from 'jsonwebtoken';
 import schema from '../graphql';
 import { NODE_ENV, JWT_SECRET } from './secrets';
 
-const context = async ({ req }: { req: Request }) => {
-  const token = req.headers && req.headers.authorization;
-  if (!token || token === 'null') { return { payload: null }; }
-  const payload = verify(token, JWT_SECRET);
-  return { payload };
+const context = async ({ req }: { req: Request }): Promise<object> => {
+  const token: string = req.headers && req.headers.authorization;
+  try {
+    const payload: object = verify(token, JWT_SECRET) as object;
+    return { payload };
+  } catch (e) {
+    return { payload: null };
+  }
 };
 
-const apolloServer = new ApolloServer({
-  schema,
+const apolloServer: ApolloServer = new ApolloServer({
   introspection: NODE_ENV === 'development',
   playground: NODE_ENV === 'development',
   validationRules: [depthLimit(7)],
+  schema,
   context,
 });
 

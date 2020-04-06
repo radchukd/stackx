@@ -7,32 +7,54 @@ import {
   updatePassword,
   deleteUser,
 } from './users/resolvers';
+import {
+  Resolvers,
+  ResolversParentTypes,
+  QueryLoginArgs,
+  MutationSignupArgs,
+  MutationUpdateProfileArgs,
+  MutationUpdateEmailArgs,
+  MutationUpdatePasswordArgs,
+} from '../types/generated';
+import { Context } from '../types';
 
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
-    login: async (_: any, args: any, ___: any, ____: any) => (
-      login(args)
-    ),
-    getUser: async (_: any, __: any, context: any, ____: any) => (
-      getUser(context)
-    ),
+    login: async (
+      _parent: ResolversParentTypes,
+      args: QueryLoginArgs,
+    ) => login(args),
+    getUser: async (
+      _parent: ResolversParentTypes,
+      _args: null,
+      context: Context,
+    ) => getUser(context),
   },
   Mutation: {
-    signup: async (_: any, args: any, ___: any, ____: any) => (
-      signup(args)
-    ),
-    updateProfile: async (_: any, args: any, context: any, ____: any) => (
-      updateProfile(args, context)
-    ),
-    updateEmail: async (_: any, args: any, context: any, ____: any) => (
-      updateEmail(args, context)
-    ),
-    updatePassword: async (_: any, args: any, context: any, ____: any) => (
-      updatePassword(args, context)
-    ),
-    deleteUser: async (_: any, __: any, context: any, ____: any) => (
-      deleteUser(context)
-    ),
+    signup: async (
+      _parent: ResolversParentTypes,
+      args: MutationSignupArgs,
+    ) => signup(args),
+    updateProfile: async (
+      _parent: ResolversParentTypes,
+      args: MutationUpdateProfileArgs,
+      context: Context,
+    ) => updateProfile(args, context),
+    updateEmail: async (
+      _parent: ResolversParentTypes,
+      args: MutationUpdateEmailArgs,
+      context: Context,
+    ) => updateEmail(args, context),
+    updatePassword: async (
+      _parent: ResolversParentTypes,
+      args: MutationUpdatePasswordArgs,
+      context: Context,
+    ) => updatePassword(args, context),
+    deleteUser: async (
+      _parent: ResolversParentTypes,
+      _args: null,
+      context: Context,
+    ) => deleteUser(context),
   },
 };
 

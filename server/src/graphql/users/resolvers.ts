@@ -4,9 +4,17 @@ import { sign } from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
 import database from '../../config/db';
 import { JWT_SECRET, JWT_EXPIRY } from '../../config/secrets';
+import {
+  QueryLoginArgs,
+  MutationSignupArgs,
+  MutationUpdateProfileArgs,
+  MutationUpdateEmailArgs,
+  MutationUpdatePasswordArgs,
+} from '../../types/generated';
+import { Context } from '../../types';
 
 // Queries
-export const login = async (args: Record<string, any>) => {
+export const login = async (args: QueryLoginArgs) => {
   const { input: { email, password } } = args;
   const user = await database.users.findOne({ email });
   if (!user) { throw new Error('Email not found.'); }
@@ -15,7 +23,7 @@ export const login = async (args: Record<string, any>) => {
   return sign({ id: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRY });
 };
 
-export const getUser = async (context: Record<string, any>) => {
+export const getUser = async (context: Context) => {
   if (!context.payload) { throw new AuthenticationError('User is not logged in'); }
   const { payload: { id } } = context;
   const projection = { password: 0 };
@@ -23,7 +31,7 @@ export const getUser = async (context: Record<string, any>) => {
 };
 
 // Mutations
-export const signup = async (args: Record<string, any>) => {
+export const signup = async (args: MutationSignupArgs) => {
   const { input: { email, password } } = args;
   const existing = await database.users.findOne({ email });
   if (existing) { throw new Error('Email is already registered'); }
@@ -37,7 +45,7 @@ export const signup = async (args: Record<string, any>) => {
   return 'Registration is successful.';
 };
 
-export const updateProfile = async (args: Record<string, any>, context: Record<string, any>) => {
+export const updateProfile = async (args: MutationUpdateProfileArgs, context: Context) => {
   if (!context.payload) { throw new AuthenticationError('User is not logged in'); }
   const { payload: { id } } = context;
   const { value } = await database.users.findOneAndUpdate(
@@ -48,7 +56,7 @@ export const updateProfile = async (args: Record<string, any>, context: Record<s
   return value;
 };
 
-export const updateEmail = async (args: Record<string, any>, context: Record<string, any>) => {
+export const updateEmail = async (args: MutationUpdateEmailArgs, context: Context) => {
   if (!context.payload) { throw new AuthenticationError('User is not logged in'); }
   const { payload: { id } } = context;
   const email = args.input;
@@ -60,7 +68,7 @@ export const updateEmail = async (args: Record<string, any>, context: Record<str
   return value;
 };
 
-export const updatePassword = async (args: Record<string, any>, context: Record<string, any>) => {
+export const updatePassword = async (args: MutationUpdatePasswordArgs, context: Context) => {
   if (!context.payload) { throw new AuthenticationError('User is not logged in'); }
   const { payload: { id } } = context;
   const password = await hash(args.input, 12);
@@ -72,7 +80,7 @@ export const updatePassword = async (args: Record<string, any>, context: Record<
   return value;
 };
 
-export const deleteUser = async (context: Record<string, any>) => {
+export const deleteUser = async (context: Context) => {
   if (!context.payload) { throw new AuthenticationError('User is not logged in'); }
   const { payload: { id } } = context;
   await database.users.findOneAndDelete({ _id: new ObjectId(id) });

@@ -1,14 +1,15 @@
-import { gql } from 'apollo-server-express';
+import gql from 'graphql-tag';
+import { DocumentNode } from 'graphql';
 import userTypeDefs from './users/typeDefs';
 
-const queryTypeDefs = gql`
+const queryTypeDefs: DocumentNode = gql`
   type Query {
     login(input: AuthInput!): String
     getUser: UserType
   }
 `;
 
-const mutationTypeDefs = gql`
+const mutationTypeDefs: DocumentNode = gql`
   type Mutation {
     signup(input: AuthInput!): String
     updateProfile(input: UpdateProfileInput!): UserType
@@ -18,7 +19,7 @@ const mutationTypeDefs = gql`
   }
 `;
 
-const typeDefs = [
+const typeDefs: DocumentNode[] = [
   queryTypeDefs,
   mutationTypeDefs,
   userTypeDefs,

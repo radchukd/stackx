@@ -18,7 +18,8 @@
     "client/dist/",
     "client/test",
     "server/dist/",
-    "server/test/"
+    "server/test/",
+    "server/src/types/generated.d.ts"
   ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",

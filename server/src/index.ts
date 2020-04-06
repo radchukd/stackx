@@ -1,7 +1,11 @@
 import compression from 'compression';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
-import express from 'express';
+import express, {
+  Application,
+  Request,
+  Response,
+} from 'express';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
@@ -15,7 +19,7 @@ import {
   NODE_ENV,
 } from './config/secrets';
 
-const app = express();
+const app: Application = express();
 app.use(cors({ origin: `${CLIENT_HOST}:${CLIENT_PORT}` }));
 app.use(compression());
 app.use(helmet());
@@ -27,7 +31,7 @@ if (NODE_ENV === 'production') {
   app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
   app.use(express.static(resolve(__dirname, '../../client/dist')));
-  app.get('*', (_req, res) => {
+  app.get('*', (_req: Request, res: Response) => {
     res.sendFile(resolve(__dirname, '../../client/dist/index.html'));
   });
 } else { app.use(errorHandler()); }

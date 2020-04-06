@@ -16,6 +16,7 @@
   "scripts": {
     "build": "npm run server:build && npm run client:build  && npm run lint",
     "debug": "nodemon --inspect server/dist/index.js",
+    "generate": "graphql-codegen --config codegen.json",
     "lint": "npm run server:lint && npm run client:lint",
     "test": "npm run server:test && npm run client:test",
     "start": "node server/dist/index.js",
@@ -43,15 +44,18 @@
     "graphql": "^14.6.0",
     "graphql-depth-limit": "^1.1.0",
     "helmet": "^3.21.3",
-    "history": "^4.10.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2",
-    "winston": "^3.2.1"
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.13.1",
+    "@graphql-codegen/typescript": "1.13.1",
+    "@graphql-codegen/typescript-mongodb": "1.13.1",
+    "@graphql-codegen/typescript-operations": "1.13.1",
+    "@graphql-codegen/typescript-resolvers": "1.13.1",
     "@types/bcrypt": "^3.0.0",
     "@types/compression": "^1.7.0",
     "@types/cors": "^2.8.6",

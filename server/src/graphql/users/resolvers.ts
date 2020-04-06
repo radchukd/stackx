@@ -4,6 +4,7 @@ import { sign } from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
 import database from '../../config/db';
 import { JWT_SECRET, JWT_EXPIRY } from '../../config/secrets';
+import schema from '../../util/validation';
 import {
   QueryLoginArgs,
   MutationSignupArgs,
@@ -16,6 +17,7 @@ import { Context } from '../../types';
 // Queries
 export const login = async (args: QueryLoginArgs) => {
   const { input: { email, password } } = args;
+  await schema.validateAsync({ email, password });
   const user = await database.users.findOne({ email });
   if (!user) { throw new Error('Email not found.'); }
   const match = user && await compare(password, user.password);
@@ -33,6 +35,7 @@ export const getUser = async (context: Context) => {
 // Mutations
 export const signup = async (args: MutationSignupArgs) => {
   const { input: { email, password } } = args;
+  await schema.validateAsync({ email, password });
   const existing = await database.users.findOne({ email });
   if (existing) { throw new Error('Email is already registered'); }
   const user = {
@@ -48,9 +51,11 @@ export const signup = async (args: MutationSignupArgs) => {
 export const updateProfile = async (args: MutationUpdateProfileArgs, context: Context) => {
   if (!context.payload) { throw new AuthenticationError('User is not logged in'); }
   const { payload: { id } } = context;
+  const { firstName, lastName } = args.input;
+  await schema.validateAsync({ firstName, lastName });
   const { value } = await database.users.findOneAndUpdate(
     { _id: new ObjectId(id) },
-    { $set: { profile: args.input, updatedAt: new Date() } },
+    { $set: { profile: { firstName, lastName }, updatedAt: new Date() } },
     { projection: { password: 0 } },
   );
   return value;
@@ -60,6 +65,7 @@ export const updateEmail = async (args: MutationUpdateEmailArgs, context: Contex
   if (!context.payload) { throw new AuthenticationError('User is not logged in'); }
   const { payload: { id } } = context;
   const email = args.input;
+  await schema.validateAsync({ email });
   const { value } = await database.users.findOneAndUpdate(
     { _id: new ObjectId(id) },
     { $set: { email, updatedAt: new Date() } },
@@ -71,10 +77,12 @@ export const updateEmail = async (args: MutationUpdateEmailArgs, context: Contex
 export const updatePassword = async (args: MutationUpdatePasswordArgs, context: Context) => {
   if (!context.payload) { throw new AuthenticationError('User is not logged in'); }
   const { payload: { id } } = context;
-  const password = await hash(args.input, 12);
+  const password = args.input;
+  await schema.validateAsync({ password });
+  const hashed = await hash(password, 12);
   const { value } = await database.users.findOneAndUpdate(
     { _id: new ObjectId(id) },
-    { $set: { password, updatedAt: new Date() } },
+    { $set: { password: hashed, updatedAt: new Date() } },
     { projection: { password: 0 } },
   );
   return value;

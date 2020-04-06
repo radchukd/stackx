@@ -1,23 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
-import gql from 'graphql-tag';
-import client from './config/apolloClient';
-
-client.query({
-  query: gql`
-  {
-    books {
-      title
-    }
-  }
-  `
-}).then(response => { console.log(response.data.books); });
+import { ApolloProvider } from '@apollo/react-hooks';
+import { BrowserRouter } from 'react-router-dom';
+import apolloClient from './config/apolloClient';
+import AppRouter from './router';
 
 
 render(
-  <ApolloProvider client={client}>
-    <div>App</div>
+  <ApolloProvider client={apolloClient}>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root'),
 );

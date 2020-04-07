@@ -1,3 +1,5 @@
+import { UserType } from './generated';
+
 type TokenType = {
   id: string;
   iat: number;
@@ -6,4 +8,15 @@ type TokenType = {
 
 export type Context = {
   payload: TokenType | null;
+};
+
+export type NewUserDocument = {
+  email: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type UserDocument = UserType & {
+  password: string;
 };

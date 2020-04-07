@@ -12,15 +12,19 @@ import {
   MutationUpdateEmailArgs,
   MutationUpdatePasswordArgs,
 } from '../../types/generated';
-import { Context } from '../../types';
+import {
+  Context,
+  UserDocument,
+  NewUserDocument,
+} from '../../types';
 
 // Queries
 export const login = async (args: QueryLoginArgs) => {
   const { input: { email, password } } = args;
   await schema.validateAsync({ email, password });
-  const user = await database.users.findOne({ email });
+  const user: UserDocument = await database.users.findOne({ email });
   if (!user) { throw new Error('Email not found.'); }
-  const match = user && await compare(password, user.password);
+  const match: boolean = user && await compare(password, user.password);
   if (!match) { throw new Error('Incrorrect password.'); }
   return sign({ id: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRY });
 };
@@ -36,9 +40,9 @@ export const getUser = async (context: Context) => {
 export const signup = async (args: MutationSignupArgs) => {
   const { input: { email, password } } = args;
   await schema.validateAsync({ email, password });
-  const existing = await database.users.findOne({ email });
+  const existing: UserDocument = await database.users.findOne({ email });
   if (existing) { throw new Error('Email is already registered'); }
-  const user = {
+  const user: NewUserDocument = {
     email,
     password: await hash(password, 12),
     createdAt: new Date(),
@@ -79,7 +83,7 @@ export const updatePassword = async (args: MutationUpdatePasswordArgs, context: 
   const { payload: { id } } = context;
   const password = args.input;
   await schema.validateAsync({ password });
-  const hashed = await hash(password, 12);
+  const hashed: string = await hash(password, 12);
   const { value } = await database.users.findOneAndUpdate(
     { _id: new ObjectId(id) },
     { $set: { password: hashed, updatedAt: new Date() } },

@@ -1,46 +1,52 @@
-import React, { FC, useState, MouseEvent } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useMutation } from '@apollo/react-hooks';
 import { SIGNUP } from '../graphql/mutations';
-import { Loading, Error } from '../components';
 
 const Signup: FC<{}> = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const history = useHistory();
-  const [signup, { error, loading }] = useMutation(SIGNUP, {
+  const [signupMutation, { loading }] = useMutation(SIGNUP, {
     onCompleted() { history.push('/login'); },
   });
 
-  const submitForm = (e: MouseEvent) => {
-    e.preventDefault();
-
-    signup({ variables: { input: { email, password } } });
-  };
-
-  if (loading) { return <Loading />; }
-  if (error) { return <Error message={error.message} />; }
-
   return (
-    <form>
-      <input
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Email address"
-        type="email"
-        name="email"
-        required
-      />
-      <input
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Password"
-        type="password"
-        name="password"
-        required
-      />
-      <button type="submit" onClick={submitForm}>Sign up</button>
-    </form>
+    <Formik
+      initialValues={{ email: '', password: '' }}
+      validate={values => {
+        const errors: { email?: string; password?: string } = {};
+        if (!values.email) {
+          errors.email = 'Required';
+        } else if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+        ) {
+          errors.email = 'Invalid email address';
+        }
+        if (!values.password) {
+          errors.password = 'Required';
+        }
+        return errors;
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        const { email, password } = values;
+        signupMutation({ variables: { input: { email, password } } });
+        if (!loading) { setSubmitting(false); }
+      }}
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <Field type="email" name="email" placeholder="Email" />
+          <ErrorMessage name="email" component="div" />
+          <br />
+          <Field type="password" name="password" placeholder="Password" />
+          <ErrorMessage name="password" component="div" />
+          <br />
+          <button type="submit" disabled={isSubmitting}>
+            Submit
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

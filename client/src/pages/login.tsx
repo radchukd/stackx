@@ -1,16 +1,13 @@
-import React, { FC, useState, MouseEvent } from 'react';
-import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
+import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
 import { LOGIN } from '../graphql/queries';
-import { Loading, Error } from '../components';
 
 const Login: FC<{}> = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const history = useHistory();
   const client = useApolloClient();
-  const [login, { error, loading }] = useLazyQuery(LOGIN, {
-    // eslint-disable-next-line no-shadow
+  const [loginQuery, { loading }] = useLazyQuery(LOGIN, {
     onCompleted({ login }) {
       localStorage.setItem('authToken', login);
       client.writeData({ data: { isLoggedIn: true } });
@@ -18,35 +15,43 @@ const Login: FC<{}> = () => {
     },
   });
 
-  const submitForm = (e: MouseEvent) => {
-    e.preventDefault();
-
-    login({ variables: { input: { email, password } } });
-  };
-
-  if (loading) { return <Loading />; }
-  if (error) { return <Error message={error.message} />; }
-
   return (
-    <form>
-      <input
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Email address"
-        type="email"
-        name="email"
-        required
-      />
-      <input
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Password"
-        type="password"
-        name="password"
-        required
-      />
-      <button type="submit" onClick={submitForm}>Log in</button>
-    </form>
+    <Formik
+      initialValues={{ email: '', password: '' }}
+      validate={values => {
+        const errors: { email?: string; password?: string } = {};
+        if (!values.email) {
+          errors.email = 'Required';
+        } else if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+        ) {
+          errors.email = 'Invalid email address';
+        }
+        if (!values.password) {
+          errors.password = 'Required';
+        }
+        return errors;
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        const { email, password } = values;
+        loginQuery({ variables: { input: { email, password } } });
+        if (!loading) { setSubmitting(false); }
+      }}
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <Field type="email" name="email" placeholder="Email" />
+          <ErrorMessage name="email" component="div" />
+          <br />
+          <Field type="password" name="password" placeholder="Password" />
+          <ErrorMessage name="password" component="div" />
+          <br />
+          <button type="submit" disabled={isSubmitting}>
+            Submit
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

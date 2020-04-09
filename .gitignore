@@ -1,4 +1,8 @@
 .env
 node_modules
 client/dist
+client/test/__snapshots__
+client/test/coverage
 server/dist
+server/test/__snapshots__
+server/test/coverage

@@ -16,9 +16,11 @@
   },
   "ignorePatterns": [
     "client/dist/",
-    "client/test",
+    "client/test/__snapshots__",
+    "client/test/coverage",
     "server/dist/",
-    "server/test/",
+    "server/test/__snapshots__",
+    "server/test/coverage",
     "server/src/types/generated.d.ts"
   ],
   "rules": {

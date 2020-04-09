@@ -1,0 +1,8 @@
+.git
+.gitignore
+.env.example
+codegen.json
+readme.md
+node_modules
+client/dist
+server/dist

@@ -1,14 +1,16 @@
+const rootDir = process.argv[2]; // ./server || ./client
+
 module.exports = {
+  rootDir,
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: rootDir === './server' ? 'node' : 'jsdom',
   verbose: true,
-  rootDir: `${process.argv[2]}`,
   collectCoverage: true,
   coverageDirectory: './test/coverage',
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   testMatch: [
-    '**/test/**/*.test.ts',
+    '**/test/**/*.test.{ts,tsx}',
   ],
 };

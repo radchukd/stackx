@@ -15,6 +15,7 @@
     "target": "es5"
   },
   "exclude": [
-    "client"
+    "client",
+    "server/test"
   ]
 }

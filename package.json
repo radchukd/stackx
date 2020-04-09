@@ -20,7 +20,7 @@
     "generate": "graphql-codegen --config codegen.json",
     "lint": "npm run server:lint && npm run client:lint",
     "test": "npm run server:test && npm run client:test",
-    "start": "node server/dist/index.js",
+    "start": "NODE_ENV=production node server/dist/index.js",
     "client:build": "cd client && webpack --config webpack.ts",
     "client:dev": "cd client && webpack-dev-server --config webpack.ts",
     "client:lint": "eslint \"client/src/**/*.{ts,tsx}\"",

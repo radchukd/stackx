@@ -4,6 +4,10 @@
   "author": "Dmytro Radchuk <radchuk.d@gmail.com>",
   "homepage": "https://github.com/radchukd/stackx",
   "description": "Template for projects with my favourite stack",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/radchukd/stackx.git"
+  },
   "license": "MIT",
   "keywords": [
     "node",

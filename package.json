@@ -19,7 +19,7 @@
     "react"
   ],
   "scripts": {
-    "build": "npm run server:build && npm run client:build  && npm run lint",
+    "build": "npm run server:build && npm run client:build",
     "debug": "nodemon --inspect server/dist/index.js",
     "generate": "graphql-codegen --config codegen.json",
     "lint": "npm run server:lint && npm run client:lint",

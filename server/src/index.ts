@@ -27,6 +27,8 @@ app.use(helmet.permittedCrossDomainPolicies());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+apolloServer.applyMiddleware({ app, path: '/graphql' });
+
 if (NODE_ENV === 'production') {
   app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
@@ -35,8 +37,6 @@ if (NODE_ENV === 'production') {
     res.sendFile(resolve(__dirname, '../../client/dist/index.html'));
   });
 } else { app.use(errorHandler()); }
-
-apolloServer.applyMiddleware({ app, path: '/graphql' });
 
 app.listen(SERVER_PORT, async () => { await database.init(); });
 

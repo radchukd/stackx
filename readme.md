@@ -40,6 +40,8 @@ Fullstack template using modern technologies.
 
 ## Getting started
 
+### Manual
+
 ```bash
 # Clone the repository
 git clone --depth=1 https://github.com/radchukd/stackx <project_name>
@@ -52,6 +54,17 @@ cp .env.example .env
 
 # Build and run the project
 npm run build && npm run start
+```
+
+### Docker
+
+```bash
+  # Build image
+  docker build -t <image_name> .
+
+  # Run image
+  docker run -p 5001:5001 <image_id>
+
 ```
 
 ## Project structure

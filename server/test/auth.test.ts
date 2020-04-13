@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import database from '../src/config/db';
+import { database } from '../src/config';
 import { query, mutate } from '.';
 
 // Queries

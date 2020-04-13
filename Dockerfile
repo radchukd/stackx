@@ -1,4 +1,4 @@
 FROM node:latest
 COPY . .
-RUN npm install
+RUN npm ci
 CMD npm run build && npm run start

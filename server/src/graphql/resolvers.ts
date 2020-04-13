@@ -6,8 +6,9 @@ import {
   updateEmail,
   updatePassword,
   deleteUser,
-} from './users/resolvers';
+} from './users';
 import {
+  Context,
   Resolvers,
   ResolversParentTypes,
   QueryLoginArgs,
@@ -15,8 +16,7 @@ import {
   MutationUpdateProfileArgs,
   MutationUpdateEmailArgs,
   MutationUpdatePasswordArgs,
-} from '../types/generated';
-import { Context } from '../types';
+} from '../types';
 
 const resolvers: Resolvers = {
   Query: {

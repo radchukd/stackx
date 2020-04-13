@@ -1,5 +1,7 @@
 import { UserType } from './generated';
 
+export * from './generated';
+
 export type TokenType = {
   id: string;
   iat: number;

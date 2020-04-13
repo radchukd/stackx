@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { DocumentNode } from 'graphql';
-import userTypeDefs from './users/typeDefs';
+import { userTypeDefs } from './users';
 
 const queryTypeDefs: DocumentNode = gql`
   type Query {

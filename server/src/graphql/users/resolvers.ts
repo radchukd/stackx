@@ -2,20 +2,21 @@ import { AuthenticationError } from 'apollo-server-express';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
-import database from '../../config/db';
-import { JWT_SECRET, JWT_EXPIRY } from '../../config/secrets';
-import schema from '../../util/validation';
+import { schema } from '../../util';
 import {
+  database,
+  JWT_SECRET,
+  JWT_EXPIRY,
+} from '../../config';
+import {
+  Context,
+  UserDocument,
+  NewUserDocument,
   QueryLoginArgs,
   MutationSignupArgs,
   MutationUpdateProfileArgs,
   MutationUpdateEmailArgs,
   MutationUpdatePasswordArgs,
-} from '../../types/generated';
-import {
-  Context,
-  UserDocument,
-  NewUserDocument,
 } from '../../types';
 
 // Queries

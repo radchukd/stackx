@@ -10,14 +10,14 @@ import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
 import { resolve } from 'path';
-import database from './config/db';
-import apolloServer from './config/apolloServer';
 import {
+  database,
+  apolloServer,
   CLIENT_HOST,
   CLIENT_PORT,
   SERVER_PORT,
   NODE_ENV,
-} from './config/secrets';
+} from './config';
 
 const app: Application = express();
 app.use(cors({ origin: `${CLIENT_HOST}:${CLIENT_PORT}` }));

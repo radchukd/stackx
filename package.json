@@ -5,8 +5,8 @@
   "homepage": "https://github.com/radchukd/stackx",
   "description": "Template for projects with my favourite stack",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/radchukd/stackx.git"
+    "type": "git",
+    "url": "https://github.com/radchukd/stackx.git"
   },
   "license": "MIT",
   "keywords": [

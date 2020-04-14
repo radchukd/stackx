@@ -1,4 +1,4 @@
-import { MongoClient, Db, Collection } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 import { DB_URI, DB_NAME } from './secrets';
 
 class Database {
@@ -6,15 +6,12 @@ class Database {
 
   db: Db;
 
-  users: Collection;
-
   public readonly init = async function init(): Promise<void> {
     this.client = await MongoClient.connect(DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
     this.db = await this.client.db(DB_NAME);
-    this.users = await this.db.collection('users');
   }
 };
 

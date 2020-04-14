@@ -20,9 +20,7 @@ const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 });
 
 cache.writeData({
-  data: {
-    isLoggedIn: !!localStorage.getItem('authToken'),
-  },
+  data: {},
 });
 
 export default apolloClient;

@@ -3,6 +3,9 @@ import { resolve } from 'path';
 
 const { NODE_ENV, SERVER_PORT, SERVER_HOST } = process.env;
 
+// const SERVER_URL = `${SERVER_HOST}:${SERVER_PORT}/graphql`;
+// export default SERVER_URL;
+
 module.exports = {
   mode: NODE_ENV === 'development' ? 'development' : 'production',
   entry: './src/index.tsx',

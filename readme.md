@@ -27,15 +27,13 @@ Fullstack template using modern technologies.
 - GraphQL Playground
 - GraphQL Code Generator
 - MongoDB
-- JWT
 - Nodemon
 
 ### Client
 
 - React
 - React Router
-- Apollo Boost(with react-hooks)
-- Formik
+- Apollo Boost(with react hooks)
 - Webpack
 
 ## Getting started
@@ -65,46 +63,6 @@ npm run build && npm run start
   # Run image
   docker run -p 5001:5001 <image_id>
 
-```
-
-## Project structure
-
-```bash
-├── client
-│   ├── dist
-│   ├── src
-|   |   ├── components
-|   |   ├── config
-|   |   ├── graphql
-|   |   ├── pages
-|   |   ├── public
-|   |   ├── index.tsx
-|   |   └── router.tsx
-|   ├── test
-│   └── webpack.ts
-├── node_modules
-├── server
-│   ├── dist
-│   ├── src
-|   |   ├── config
-|   |   ├── graphql
-|   |   ├── types
-|   |   ├── util
-|   |   └── index.ts
-|   └── test
-├── .dockerignore
-├── .env
-├── .env.example
-├── .eslintrc
-├── .gitignore
-├── apollo.config.js
-├── codegen.json
-├── Dockerfile
-├── jest.config.js
-├── package-lock.json
-├── package.json
-├── readme.md
-└── tsconfig.json
 ```
 
 ## Available scripts

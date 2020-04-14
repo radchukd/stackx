@@ -3,7 +3,7 @@ import { DocumentNode } from 'graphql';
 
 const typeDefs: DocumentNode = gql`
   extend type Query {
-    isLoggedIn: Boolean!
+    q: String
   }
 `;
 

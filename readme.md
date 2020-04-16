@@ -6,7 +6,6 @@ Fullstack template using modern technologies.
 
 - [Node.js](https://nodejs.org/en/)
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- [Apollo Engine](https://www.apollographql.com/platform)
 
 ## Technologies
 
@@ -22,9 +21,8 @@ Fullstack template using modern technologies.
 ### Server
 
 - Express
-- Apollo Server Express(with testing)
+- Express Graphql
 - GraphQL Depth Limit
-- GraphQL Playground
 - GraphQL Code Generator
 - MongoDB
 - Nodemon

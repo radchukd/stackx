@@ -6,15 +6,14 @@ import express, {
   Request,
   Response,
 } from 'express';
-import graphqlHTTP from 'express-graphql';
-import depthLimit from 'graphql-depth-limit';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
 import { resolve } from 'path';
-import { schema, rootValue } from './graphql';
 import {
   database,
+  contextMiddleware,
+  graphqlServer,
   CLIENT_HOST,
   CLIENT_PORT,
   SERVER_PORT,
@@ -28,13 +27,7 @@ app.use(helmet());
 app.use(helmet.permittedCrossDomainPolicies());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/graphql', graphqlHTTP({
-  schema,
-  rootValue,
-  pretty: true,
-  validationRules: [depthLimit(7)],
-  context: { name: 'world' },
-}));
+app.use('/graphql', contextMiddleware, graphqlServer);
 
 if (NODE_ENV === 'production') {
   app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));

@@ -2,12 +2,11 @@
   "overwrite": true,
   "schema": "http://localhost:5001/graphql",
   "generates": {
-    "server/src/types/generated.d.ts": {
+    "server/src/types/generated.ts": {
       "plugins": [
         "typescript",
         "typescript-operations",
-        "typescript-resolvers",
-        "typescript-mongodb"
+        "typescript-resolvers"
       ]
     }
   }

@@ -56,7 +56,6 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^1.13.2",
     "@graphql-codegen/typescript": "1.13.2",
-    "@graphql-codegen/typescript-mongodb": "1.13.2",
     "@graphql-codegen/typescript-operations": "1.13.2",
     "@graphql-codegen/typescript-resolvers": "1.13.2",
     "@types/compression": "^1.7.0",

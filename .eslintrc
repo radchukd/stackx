@@ -21,7 +21,7 @@
     "server/dist/",
     "server/test/__snapshots__",
     "server/test/coverage",
-    "server/src/types/generated.d.ts"
+    "server/src/types/generated.ts"
   ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",

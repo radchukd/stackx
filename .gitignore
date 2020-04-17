@@ -6,3 +6,4 @@ client/test/coverage
 server/dist
 server/test/__snapshots__
 server/test/coverage
+server/src/types/generated.ts

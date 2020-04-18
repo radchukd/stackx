@@ -11,7 +11,7 @@ import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
 import { resolve } from 'path';
 import {
-  database,
+  db,
   contextMiddleware,
   graphqlServer,
   CLIENT_HOST,
@@ -38,6 +38,6 @@ if (NODE_ENV === 'production') {
   });
 } else { app.use(errorHandler()); }
 
-app.listen(SERVER_PORT, async () => { await database.init(); });
+app.listen(SERVER_PORT, async () => { await db.init(); });
 
 export default app;

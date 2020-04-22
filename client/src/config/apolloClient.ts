@@ -2,7 +2,7 @@ import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-boost';
-import { typeDefs, resolvers } from '../graphql';
+import { cacheData, typeDefs, resolvers } from '../graphql';
 
 const cache: InMemoryCache = new InMemoryCache();
 const link: ApolloLink = createHttpLink({
@@ -19,8 +19,6 @@ const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   resolvers,
 });
 
-cache.writeData({
-  data: {},
-});
+cache.writeData({ data: cacheData });
 
 export default apolloClient;

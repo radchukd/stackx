@@ -1,1 +1,7 @@
-import { gql } from 'apollo-boost';
+// import { gql } from 'apollo-boost';
+
+// client
+
+// server
+
+export const SIGNUP = '';
